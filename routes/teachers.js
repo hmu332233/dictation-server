@@ -38,11 +38,23 @@ router.post("/teachers", function (req, res){
 //update
 router.put("/teachers/:id", function (req, res){
 	
+	var id = req.params.id;
+  
+  Teacher.findByIdAndUpdate(id, req.body, {new: true}, function (err, teacher) {
+    if(err) return res.status(500).send(err);
+    res.send(teacher);
+  });
 });
 
 //delete
 router.delete("/teachers/:id", function (req, res){
 	
+	var id = req.params.id;
+  
+  Teacher.remove({ "_id": id }, function (err){
+    if(err) return res.status(500).send(err);
+    res.send("success");
+  });
 });
 
 module.exports = router;

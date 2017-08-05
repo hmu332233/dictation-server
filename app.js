@@ -18,9 +18,9 @@ db.once('open', function(){
 mongoose.connect('mongodb://localhost:27017/dictationdb');
 
 
-app.get('/', function (req, res){
-	res.send('test');
-});
+/*route*/
+app.use('/', require('./routes/teachers'));
+
 
 app.listen(3000, function (){
    console.log('server start!'); 

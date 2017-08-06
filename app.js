@@ -3,8 +3,10 @@ const app = express();
 
 const bodyParser = require('body-parser');
 const mongoose   = require("mongoose");
+const logger = require('morgan');
 
-
+/*개발용 log*/
+app.use(logger('dev'));
 /*bodyParser*/
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

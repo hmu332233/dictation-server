@@ -20,6 +20,8 @@ mongoose.connect('mongodb://localhost:27017/dictationdb');
 
 /*route*/
 app.use('/', require('./routes/teachers'));
+app.use('/', require('./routes/students'));
+
 
 
 app.listen(3000, function (){

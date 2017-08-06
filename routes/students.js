@@ -4,9 +4,6 @@ const router = express.Router();
 var Teacher = require("../models/teacher");
 var Student = require("../models/student");
 
-router.get('/test', function (req, res){
-	res.send('test');
-});
 
 router.get('/teachers/:teacher_id/students', function (req ,res){
 

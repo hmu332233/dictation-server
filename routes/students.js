@@ -42,7 +42,7 @@ router.post("/teachers/:teacher_id/students", function (req, res){
 	});
 });
 
-
+//show
 router.get('/students/:id', function (req, res){
 	var id = req.parmas.id;
 	
@@ -52,6 +52,19 @@ router.get('/students/:id', function (req, res){
 	});
 });
 
+//create
+router.post("/student", function (req, res){
+	
+	var student = new Student(req.body);
+  
+  student.save(function (err, student){
+    if(err) return res.status(500).send(err);
+    res.send(student);
+  });
+	
+});
+
+//update
 router.put('/students/:id', function (req, res){
 	
 	var id = req.params.id;
@@ -60,6 +73,27 @@ router.put('/students/:id', function (req, res){
     if(err) return res.status(500).send(err);
     res.send(student);
   });
+});
+
+//delete
+router.delete("/teachers/:teacher_id/students/:students_id", function (req, res){
+	
+	var teacher_id = req.params.teacher_id;
+	var students_id = req.params.students_id;
+	
+	Teacher.findById(teacher_id, function (err, teacher){
+		if(err) return res.status(500).send(err);
+		teacher.students.remove(students_id);
+		teacher.save(function (err, teacher){
+			if(err) return res.status(500).send(err);
+		});
+	});
+  
+	Student.remove({ "_id": students_id }, function (err){
+    if(err) return res.status(500).send(err);
+    res.send("success");
+  });
+	
 });
 
 module.exports = router;

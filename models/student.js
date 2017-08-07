@@ -8,7 +8,7 @@ var studentSchema = new Schema({
 		school: String,
 		class: String,
     name: String,
-		grade: Array
+		grades: Array
 });
 
 module.exports = mongoose.model("Student", studentSchema);

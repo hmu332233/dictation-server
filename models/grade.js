@@ -11,4 +11,4 @@ var gradeSchema = new Schema({
 		detail: Array
 });
 
-module.exports = mongoose.model("Grade", studentSchema);
+module.exports = mongoose.model("Grade", gradeSchema);

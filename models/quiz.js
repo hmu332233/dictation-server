@@ -9,4 +9,4 @@ var quizSchema = new Schema({
 		questions: Array
 });
 
-module.exports = mongoose.model("Quiz", studentSchema);
+module.exports = mongoose.model("Quiz", quizSchema);

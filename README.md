@@ -118,3 +118,28 @@ $ npm start 또는 node app.js
   ]
  }
 ```
+
+#### quiz
+
+| ROUTE  | METHOD  | DESCRIPTION |
+|---|---|---|
+| /quizzes |  GET | quizzes 전체 정보 |
+| /quizzes/:id  |  GET | quizzes 한명 정보 |
+| /quizzes  |  POST | quizzes 추가 |
+| /quizzes/:id  | PUT | quizzes 수정 |
+| /quizzes/:id |  DELETE | quizzes 삭제 |
+```
+{
+	"quiz_number": 1,
+	"questions": [
+		{
+		  "question_number": 1,
+		  "answer":"첫번째"
+		},
+		{
+		  "question_number": 2,
+		  "answer":"두번째"
+		}
+	]
+}
+```

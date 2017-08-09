@@ -124,22 +124,38 @@ $ npm start 또는 node app.js
 | ROUTE  | METHOD  | DESCRIPTION |
 |---|---|---|
 | /quizzes |  GET | quizzes 전체 정보 |
-| /quizzes/:id  |  GET | quizzes 한명 정보 |
+| /quizzes/:id  |  GET | quizzes 한 개 정보 |
 | /quizzes  |  POST | quizzes 추가 |
 | /quizzes/:id  | PUT | quizzes 수정 |
 | /quizzes/:id |  DELETE | quizzes 삭제 |
 ```
 {
-	"quiz_number": 1,
-	"questions": [
-		{
-		  "question_number": 1,
-		  "answer":"첫번째"
-		},
-		{
-		  "question_number": 2,
-		  "answer":"두번째"
-		}
-	]
+  "quiz_number": 1,
+  "questions": [
+    {
+      "question_number": 1,
+      "answer":"첫번째"
+    },
+    {
+      "question_number": 2,
+      "answer":"두번째"
+    }
+  ]
+}
+```
+
+#### school
+
+| ROUTE  | METHOD  | DESCRIPTION |
+|---|---|---|
+| /schools |  GET | schools 전체 정보 |
+| /schools/:id  |  GET | schools 한 개 정보 |
+```
+{
+  "region1": "서울특별시",
+  "region2": "서초구",
+  "name": "서울교육대학교부설초등학교",
+  "address": "서울특별시 서초구 서초동",
+  "_id": "598b4797d9472101a5d4291c",
 }
 ```

@@ -25,6 +25,7 @@ app.use('/', require('./routes/auth'));
 app.use('/', require('./routes/teachers'));
 app.use('/', require('./routes/students'));
 app.use('/', require('./routes/quizzes'));
+app.use('/', require('./routes/schools'));
 
 
 

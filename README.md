@@ -27,4 +27,4 @@ $ npm start 또는 node app.js
 ```
 
 ### api 목록
-[api list 보기(링크)]('/blob/master/doc/api_list.md')
+[api list 보기(링크)](/doc/api_list.md)

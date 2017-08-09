@@ -29,7 +29,16 @@ router.post('/auth/login', function (req, res){
 			});
       break;
     case 'student':
-			res.send({result: "fail",user:{}});
+			
+			var name = req.body.name;
+			var school = req.body.school;
+			var student_id = req.body.student_id;
+			
+			Student.findOne({name: name, school: school, student_id: student_id}, function(err, student){
+				if(err) return res.status(500).send(err);
+  			if(!student) return res.status(404).send({result: "fail",user:{}});
+				res.send({result: "success",type:"student",user:student});
+			});
     	break;
     default:
 			res.send({result:'fail',user:{}});

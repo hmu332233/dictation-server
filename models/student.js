@@ -7,6 +7,7 @@ var studentSchema = new Schema({
     //id는 기본으로 생성됨
 		school: String,
 		class: String,
+	  student_id: Number,
     name: String,
 		grades: Array
 });

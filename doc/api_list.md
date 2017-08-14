@@ -43,7 +43,7 @@
 ```
 요청
 "school": "한국초등학교",
-"class": "6-7",
+"class_name": "6-7",
 "name": "홍길동",
 "email": "test@test.com",
 "password": "123456",
@@ -53,7 +53,7 @@
 {
   "_id": "5986f90de1a62e01e76fdf2f",
   "school": "한국초등학교",
-  "class": "6-7",
+  "class_name": "6-7",
   "name": "홍길동",
   "email": "test@test.com",
   "password": "123456",
@@ -77,7 +77,7 @@
 ```
 요청
 "school": "한국초등학교",
-"class": "6-7",
+"class_name": "6-7",
 "student_id": 1,
 "name": "홍길동",
 ```
@@ -86,7 +86,7 @@
 {
   "_id": "5986f9427848e702168e7fc9",
   "school": "한국초등학교",
-  "class": "6-7",
+  "class_name": "6-7",
   "student_id": 1,
   "name": "홍길동",
   "grade": [

@@ -8,7 +8,7 @@ var teacherSchema = new Schema({
 		email: String,
 		password: String,
 		school: String,
-		class: String,
+		class_name: String,
     name: String,
 		students: Array
 });

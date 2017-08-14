@@ -10,7 +10,7 @@
 요청
 "name": "홍길동",
 "school": "한국초등학교",
-"id": 123456
+"email": 123456
 "type": "teacher" 또는 "student"
 ```
 ```
@@ -18,7 +18,7 @@
 - 성공
 {
   "result": "success",
-	"type": "teacher" 또는 "student"
+  "type": "teacher" 또는 "student"
   "user": {
     //해당 객체 정보 (하단 참조)
   }
@@ -26,7 +26,7 @@
 - 실패
 {
   "result": "fail",
-	"type": "teacher" 또는 "student"
+  "type": "teacher" 또는 "student"
   "user": {}
 }
 ```
@@ -78,6 +78,7 @@
 요청
 "school": "한국초등학교",
 "class": "6-7",
+"student_id": 1
 "name": "홍길동",
 ```
 ```

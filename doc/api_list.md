@@ -78,7 +78,7 @@
 요청
 "school": "한국초등학교",
 "class": "6-7",
-"student_id": 1
+"student_id": 1,
 "name": "홍길동",
 ```
 ```
@@ -87,6 +87,7 @@
   "_id": "5986f9427848e702168e7fc9",
   "school": "한국초등학교",
   "class": "6-7",
+  "student_id": 1,
   "name": "홍길동",
   "grade": [
     "5986f9427848e702168e7fc9",

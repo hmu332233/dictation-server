@@ -50,7 +50,7 @@ router.get('/students/:id', function (req, res){
 });
 
 //create
-router.post("/student", function (req, res){
+router.post("/students", function (req, res){
 	
 	var student = new Student(req.body);
   

@@ -10,7 +10,7 @@
 요청
 "name": "홍길동",
 "school": "한국초등학교",
-"email": 123456
+"student_id": 123456
 "type": "teacher" 또는 "student"
 ```
 ```
@@ -77,7 +77,8 @@
 ```
 요청
 "school": "한국초등학교",
-"class_name": "6-7",
+"level": "1",
+"class_name": "7",
 "student_id": 1,
 "name": "홍길동",
 ```
@@ -86,6 +87,7 @@
 {
   "_id": "5986f9427848e702168e7fc9",
   "school": "한국초등학교",
+  "level": 1,
   "class_name": "6-7",
   "student_id": 1,
   "name": "홍길동",

@@ -19,6 +19,7 @@ router.get('/teachers/:teacher_id/students', function (req ,res){
 	});
 });
 
+//학생 회원가입 + 선생님 반 학생으로 추가
 router.post("/teachers/:teacher_id/students", function (req, res){
 	
 	var teacher_id = req.params.teacher_id;
@@ -36,6 +37,22 @@ router.post("/teachers/:teacher_id/students", function (req, res){
 				res.send(teacher);
 			});
 		});
+	});
+});
+
+//선생님 반 학생으로 추가
+router.post("/teachers/:teacher_id/students/:student_id", function (req, res){
+	
+	var teacher_id = req.params.teacher_id;
+	var student_id = req.params.student_id; 
+	
+	Teacher.findById(teacher_id, function (err, teacher) {
+
+    teacher.students.push(student_id);
+    teacher.save(function (err, teacher) {	
+	    if(err) return res.status(500).send(err);
+      res.send(teacher);
+    });
 	});
 });
 

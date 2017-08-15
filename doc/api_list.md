@@ -72,7 +72,8 @@
 | /students  |  POST | student 추가 |
 | /students/:id  |  PUT | student 수정 |
 | /teachers/:teacher_id/students  |  GET | teacher의 student 전체 정보 |
-| /teachers/:teacher_id/students  |  POST | teacher의 student 추가 |
+| /teachers/:teacher_id/students  |  POST | teacher의 student 추가 - 전체 정보로 |
+| /teachers/:teacher_id/students/:student_id | POST | teacher의 student 추가 - 학생 id 값으로 |
 | /teachers/:teacher_id/students/student_id  |  DELETE | teacher의 student 삭제 |
 ```
 요청

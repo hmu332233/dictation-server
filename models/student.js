@@ -10,7 +10,7 @@ var studentSchema = new Schema({
 		class_name: String,
 		student_id: Number,
 		name: String,
-		grades: Array
+		quiz_results: Array
 });
 
 module.exports = mongoose.model("Student", studentSchema);

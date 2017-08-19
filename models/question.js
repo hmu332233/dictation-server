@@ -1,7 +1,7 @@
 var questionSchema = function (data){
 	return {
-		question_number: data.question_number,
-		answer: data.answer
+		number: data.number,
+		sentence: data.sentence
 	};
 };
 

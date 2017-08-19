@@ -3,12 +3,11 @@ var mongoose = require('mongoose'),
 
 
 /* 스키마 정의 */
-var gradeSchema = new Schema({
+var quizHistorySchema = new Schema({
     //id는 기본으로 생성됨
 		date: { type: Date, default: Date.now },
 		quiz_number: Number, //quiz 외래키
-		score: Number,
-		detail: Array
+		quiz_results: Array
 });
 
-module.exports = mongoose.model("Grade", gradeSchema);
+module.exports = mongoose.model("QuizHistory", quizHistorySchema);

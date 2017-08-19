@@ -139,3 +139,57 @@
   "_id": "598b4797d9472101a5d4291c",
 }
 ```
+
+---
+
+#### Quiz History
+| ROUTE  | METHOD  | DESCRIPTION |
+|---|---|---|
+| /teachers/:teacher_id/quizhistories |  GET | 선생님이 본 quiz history 전체 |
+| /quizhistories/:id  |  GET | quiz history 한 개 |
+
+#### test
+
+| ROUTE  | METHOD  | DESCRIPTION |
+|---|---|---|
+| /quiz/start | GET | 시험 시작 시 요청 |
+```
+요청
+{
+  "teacher_id": "abcdef",
+  "quiz_number": 1
+}
+
+응답
+{
+  "quiz_history_id": "asdffda"
+}
+```
+
+
+| ROUTE  | METHOD  | DESCRIPTION |
+|---|---|---|
+| /quiz/end  | GET | 시험 종료 시 요청 |
+
+```
+요청
+{
+  "quiz_history_id": {},
+  "student_id": {},
+  "quiz_result": {
+    "date": {},
+    "quiz_number": {},
+    "student_name": {},
+    "score": {},
+    "question_result": [
+      {
+        "question_number": {},
+        "correct": {},
+        "wrong_part": {},
+        "submitted_answer": {}
+      },
+      ...
+    ]
+  }
+}
+```

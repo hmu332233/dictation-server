@@ -58,7 +58,8 @@ router.post("/teachers/:teacher_id/students/:student_id", function (req, res){
 
 //show
 router.get('/students/:id', function (req, res){
-	var id = req.parmas.id;
+	var id = req.params.id;
+	console.log(id);
 	
 	Student.findById(id, function (err, student){
 		if(err) return res.status(500).send(err);

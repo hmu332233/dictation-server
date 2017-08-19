@@ -152,7 +152,7 @@
 
 | ROUTE  | METHOD  | DESCRIPTION |
 |---|---|---|
-| /quiz/start | GET | 시험 시작 시 요청 |
+| /quiz/start | POST | 시험 시작 시 요청 |
 ```
 요청
 {
@@ -169,7 +169,7 @@
 
 | ROUTE  | METHOD  | DESCRIPTION |
 |---|---|---|
-| /quiz/end  | GET | 시험 종료 시 요청 |
+| /quiz/end  | POST | 시험 종료 시 요청 |
 
 ```
 요청

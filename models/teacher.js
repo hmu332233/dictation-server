@@ -10,7 +10,8 @@ var teacherSchema = new Schema({
 		school: String,
 		class_name: String,
     name: String,
-		students: Array
+		students: Array,
+    quiz_histories: Array
 });
 
 module.exports = mongoose.model("Teacher", teacherSchema);

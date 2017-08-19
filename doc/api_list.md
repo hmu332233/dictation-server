@@ -145,8 +145,8 @@
 #### Quiz History
 | ROUTE  | METHOD  | DESCRIPTION |
 |---|---|---|
-| /teachers/:teacher_id/quizhistories |  GET | 선생님이 본 quiz history 전체 |
-| /quizhistories/:id  |  GET | quiz history 한 개 |
+| /teachers/:teacher_id/quiz_histories |  GET | 선생님이 본 quiz history 전체 |
+| /quiz_histories/:id  |  GET | quiz history 한 개 |
 
 #### test
 

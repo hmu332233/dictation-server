@@ -11,7 +11,10 @@ router.get('/teachers/:teacher_id/quiz_histories', function (req, res){
 	
 	Teacher.findById(teacher_id, function (err, teacher){
 		if(err) return res.status(500).send(err);
-		res.send(teacher.quiz_histories);
+		QuizHistory.find({_id: { $in : teacher.quiz_histories }},{_id:1, quiz_number:1, date:1} , function(err, quizHistories){
+			if(err) return res.status(500).send(err);
+			res.send(quizHistories);
+		});
 	});
 });
 

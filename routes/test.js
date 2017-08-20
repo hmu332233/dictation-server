@@ -1,16 +1,37 @@
 const express = require('express');
 const router = express.Router();
 
+var async = require('async');
 var QuizHistory = require("../models/quiz_history");
 var Teacher = require("../models/teacher");
 var Student = require("../models/student");
 
 //index
 router.post('/quiz/start', function (req, res){
-  	
-	QuizHistory.create(req.body, function (err, quizHistory){
+  
+	var teacher_id = req.body.teacher_id;
+	
+	var tasks = [
+		function(callback){
+			QuizHistory.create(req.body, function (err, quizHistory){
+				if(err) callback(err, 0);
+				callback(null, quizHistory);
+			});
+		},
+		function(data, callback){
+			Teacher.findById(teacher_id, function (err, teacher){
+				if(err) callback(err, 0);
+				teacher.quiz_histories.push(data._id);
+				teacher.save();
+				callback(null, data._id);
+			});
+		}
+	];
+	
+	async.waterfall(tasks, function (err, results){
+
 		if(err) return res.status(500).send(err);
-		res.send({quiz_history_id: quizHistory._id});
+		res.send({quiz_history_id: results});
 	});
 });
 

@@ -57,4 +57,14 @@ router.delete("/teachers/:id", function (req, res){
   });
 });
 
+router.get("/teachers/:id/quzzies", function (req, res){
+	var id = req.params.id;
+	
+	Teacher.findById(id, function (err, teacher) {
+ 		if(err) return res.status(500).send(err);
+  	if(!teacher) return res.status(404).send({ err: "Teacher not found"});
+  	res.send(teacher.quzzies);
+  });
+});
+
 module.exports = router;

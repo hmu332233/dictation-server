@@ -37,14 +37,16 @@ router.post('/quiz/start', function (req, res){
 
 
 router.post('/quiz/end', function (req, res){
-  
-	var student_id = req.body.student_id;
-	var quiz_history_id = req.body.quiz_history_id;
-	var quiz_result = req.body.quiz_result;
+	
+	var data = req.body;
+	console.log(data);
+	var student_id = data.student_id;
+	var quiz_history_id = data.quiz_history_id;
+	var quiz_result = data.quiz_results;
 	
 	Student.findById(student_id, function (err, student){
 		if(err) return res.status(500).send(err);
-		console.log(student);
+		// console.log(student);
 		student.quiz_results.push(quiz_result);
 		student.save();
 	});

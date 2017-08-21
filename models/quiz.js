@@ -6,6 +6,7 @@ var mongoose = require('mongoose'),
 var quizSchema = new Schema({
     //id는 기본으로 생성됨
 		number: { type: Number, unique: true},
+		name: String,
 		questions: Array
 });
 

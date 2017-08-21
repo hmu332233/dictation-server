@@ -14,6 +14,7 @@ db.once('open', function(){
 			var school = schools[i];
 			School.create(school, function(err, sc){
 				console.log(sc);
+				db.close();
 			});
 		}
 	});

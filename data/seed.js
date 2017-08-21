@@ -32,6 +32,7 @@ db.once('open', function(){
 	
 	var quiz = {
 		"number": 9,
+		"name": "1학년 1학기 9급",
 		"questions": [
 			{
 				"number": 1,

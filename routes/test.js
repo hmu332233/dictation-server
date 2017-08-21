@@ -42,7 +42,7 @@ router.post('/quiz/end', function (req, res){
 	console.log(data);
 	var student_id = data.student_id;
 	var quiz_history_id = data.quiz_history_id;
-	var quiz_result = data.quiz_results;
+	var quiz_result = data.quiz_result;
 	
 	Student.findById(student_id, function (err, student){
 		if(err) return res.status(500).send(err);

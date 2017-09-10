@@ -10,7 +10,7 @@ var teacherSchema = new Schema({
 		school: String,
 		class_name: String,
     name: String,
-		students: Array,
+		students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
     quiz_histories: Array
 });
 

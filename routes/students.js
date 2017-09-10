@@ -9,13 +9,16 @@ router.get('/teachers/:teacher_id/students', function (req ,res){
 
 	var teacher_id = req.params.teacher_id;
 
-	Teacher.findById(teacher_id, function (err, teacher){
+	// Teacher.findById(teacher_id, function (err, teacher){
+	// 	if(err) return res.status(500).send(err);
+	// 	Student.find({_id: { $in : teacher.students }}, function(err, students){
+	// 		if(err) return res.status(500).send(err);
+	// 		res.send(students);
+	// 	});
+	// });
+	Teacher.findById(teacher_id).populate('students').exec(function (err, teacher){
 		if(err) return res.status(500).send(err);
-		Student.find({_id: { $in : teacher.students }}, function(err, students){
-			if(err) return res.status(500).send(err);
-			res.send(students);
-		});
-		
+		res.send(teacher);
 	});
 });
 

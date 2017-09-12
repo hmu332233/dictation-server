@@ -14,16 +14,19 @@ db.once('open', function(){
 	
 	var teacher = {
 		_id: "599b03151c6e6f0159a72815",
-		email: "test@test.com",
+		login_id: "test@test.com",
+		password: "123",
 		school: "한국초등학교",
+		grade: "1",
+		"class": "3",
 		name: "한의현"
 	};
 	
 	var student1 = {
 		_id: "599b4041cefd5d07c5be9594",
 		school: "한국초등학교",
-		level: "1",
-		class_name: "2",
+		grade: "1",
+		class: "2",
 		student_id: 1,
 		name: "반도범"
 	};
@@ -31,8 +34,8 @@ db.once('open', function(){
 	var student2 = {
 		_id: "599c75f7836cc308789f5902",
 		school: "한국초등학교",
-		level: "1",
-		class_name: "2",
+		grade: "1",
+		class: "2",
 		student_id: 2,
 		name: "한민웅"
 	};

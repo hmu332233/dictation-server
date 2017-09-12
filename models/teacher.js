@@ -5,13 +5,14 @@ var mongoose = require('mongoose'),
 /* 스키마 정의 */
 var teacherSchema = new Schema({
     //id는 기본으로 생성됨
-		email: String,
+		login_id: String,
 		password: String,
 		school: String,
-		class_name: String,
+		grade: String,
+		class: String,
     name: String,
 		students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
-    quiz_histories: Array
+    quiz_histories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'QuizHistory' }]
 });
 
 module.exports = mongoose.model("Teacher", teacherSchema);

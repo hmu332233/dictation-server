@@ -3,6 +3,17 @@ const router = express.Router();
 
 var Teacher = require("../models/teacher");
 
+//check for duplicate
+router.get("/teachers/check_duplicate", function (req, res){
+	var login_id = req.query.login_id;
+	console.log(login_id);
+	Teacher.checkForDuplicate(login_id, function (err, duplicate){
+		console.log(duplicate);
+		if(duplicate) return res.send({result:true});
+		else return res.send({result:false});
+	});
+});
+
 //index
 router.get("/teachers", function (req, res){
 	Teacher.find({}, function (err, teachers){
@@ -29,7 +40,11 @@ router.post("/teachers", function (req, res){
 	var teacher = new Teacher(req.body);
   
   teacher.save(function (err, teacher){
-    if(err) return res.status(500).send(err);
+    if(err){
+			if(err.code === 11000) return res.status(409).send(err);
+			
+			return res.status(500).send(err);
+		} 
     res.send(teacher);
   });
 	

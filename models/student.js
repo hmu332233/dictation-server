@@ -14,10 +14,9 @@ var studentSchema = new Schema({
 });
 
 /* 중복체크 함수 */
-studentSchema.statics.checkForDuplicate = function (data, callback) {
-  this.findOne({school: data.school, grade: data.grade, class: data.class, student_id: data.student_id}, function (err, student){
+studentSchema.statics.checkForDuplicate = function (query, callback) {
+  this.findOne(query, function (err, student){
 		if(err) callback(err, null);
-		
 		if(!student) callback(null, false);
 		else callback(null, true);
 	});

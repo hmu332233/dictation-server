@@ -19,7 +19,6 @@ var teacherSchema = new Schema({
 teacherSchema.statics.checkForDuplicate = function (_login_id, callback) {
   this.findOne({login_id:_login_id}, function (err, teacher){
 		if(err) callback(err, null);
-		
 		if(!teacher) callback(null, false);
 		else callback(null, true);
 	});

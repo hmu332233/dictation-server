@@ -13,4 +13,13 @@ var studentSchema = new Schema({
 		quiz_results: Array
 });
 
+/* 중복체크 함수 */
+studentSchema.statics.checkForDuplicate = function (query, callback) {
+  this.findOne(query, function (err, student){
+		if(err) callback(err, null);
+		if(!student) callback(null, false);
+		else callback(null, true);
+	});
+};
+
 module.exports = mongoose.model("Student", studentSchema);

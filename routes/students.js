@@ -4,18 +4,10 @@ const router = express.Router();
 var Teacher = require("../models/teacher");
 var Student = require("../models/student");
 
-
 router.get('/teachers/:teacher_id/students', function (req ,res){
 
 	var teacher_id = req.params.teacher_id;
-
-	// Teacher.findById(teacher_id, function (err, teacher){
-	// 	if(err) return res.status(500).send(err);
-	// 	Student.find({_id: { $in : teacher.students }}, function(err, students){
-	// 		if(err) return res.status(500).send(err);
-	// 		res.send(students);
-	// 	});
-	// });
+	
 	Teacher.findById(teacher_id).populate('students').exec(function (err, teacher){
 		if(err) return res.status(500).send(err);
 		res.send(teacher);
@@ -56,6 +48,16 @@ router.post("/teachers/:teacher_id/students/:student_id", function (req, res){
 	    if(err) return res.status(500).send(err);
       res.send(teacher);
     });
+	});
+});
+
+//check for duplicate
+router.get("/students/check_duplicate", function (req, res){
+
+	Student.checkForDuplicate(req.query, function (err, duplicate){
+		console.log(duplicate);
+		if(duplicate) return res.send({result:true});
+		else return res.send({result:false});
 	});
 });
 

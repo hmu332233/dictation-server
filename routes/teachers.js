@@ -82,4 +82,16 @@ router.get("/teachers/:id/quzzies", function (req, res){
   });
 });
 
+router.get("/teachers/login_id/:login_id", function (req, res){
+	
+	var login_id = req.params.login_id;
+	
+	Teacher.findOne({'login_id': login_id }, function (err, teacher){
+		if(err) return res.status(500).send(err);
+		if(!teacher) return res.status(404).send({ err: "Teacher not found"});
+		res.send(teacher);
+	});
+	
+});
+
 module.exports = router;

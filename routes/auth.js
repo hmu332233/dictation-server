@@ -6,26 +6,20 @@ var Student = require("../models/student");
 
 router.post('/auth/login', function (req, res){
 	
-	var email = req.body.email;
+	var login_id = req.body.login_id;
 	var pw = req.body.password;
 	var type = req.body.type;
 	
 	// console.log(email);
 	// console.log(pw);
 	// console.log(type);
-	
 	switch(type) {
     case 'teacher':
-			Teacher.findOne({email: email}, function (err, teacher){
-				if (err) return res.status(500).send(err);
-				if(teacher){
-					if(teacher.password === pw)
-						res.send({result: "success",user:{type:"teacher","_id":teacher.id}});
-					else
-						res.send({result: "fail",user:{}});
-				} else {
-					res.send({result: "fail",user:{}});
-				}
+			Teacher.findOne({login_id: login_id, password: pw}, function (err, teacher){
+				if(err) return res.status(500).send(err);
+				if(!teacher) return res.status(404).send({});
+				
+				res.send(teacher);
 			});
       break;
     case 'student':
@@ -41,7 +35,7 @@ router.post('/auth/login', function (req, res){
 			});
     	break;
     default:
-			res.send({result:'fail',user:{}});
+			res.status(400).send({result:'fail',user:{}});
 	}
 });
 

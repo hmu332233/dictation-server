@@ -3,19 +3,49 @@ const router = express.Router();
 
 var Teacher = require("../models/teacher");
 
-router.post('/matching/apply', function (req ,res){
+router.post('/matching/apply', function (req, res){
 
 	var teacher_login_id = req.body.teacher_login_id;
   var student_id = req.body.student_id;
   
   Teacher.findOne({login_id: teacher_login_id}, function (err, teacher){
     if(err) return res.status(500).send(err);
-    if(!teacher) return res.status(404),send({});
+    if(!teacher) return res.status(404).send({});
     
     teacher.applicants.push(student_id);
     teacher.save();
     return res.send(teacher);
   });
+  
+});
+
+router.post('/matching/accept', function (req, res){
+  
+  var teacher_login_id = req.body.teacher_login_id;
+  var student_id = req.body.student_id;
+  
+  Teacher.findOne({login_id: teacher_login_id}, function (err, teacher){
+    if(err) return res.status(500).send(err);
+    if(!teacher) return res.status(404).send({});
+    
+    if(teacher.applicants.indexOf(student_id) > -1){  // if student exsis, remove at applicants and add in students
+      
+      teacher.applicants.remove(student_id);
+      teacher.students.push(student_id);
+      teacher.save();
+      
+    } else {
+      return res.status(400).send({});
+    }
+    
+    return res.send(teacher);
+  });
+});
+
+router.post('/matching/cancel', function (req, res){
+  
+  var teacher_login_id = req.body.teacher_login_id;
+  var student_id = req.body.student_id;
   
 });
 

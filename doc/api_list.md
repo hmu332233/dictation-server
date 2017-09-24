@@ -1,4 +1,4 @@
-
+﻿
 ### API 목록
 
 #### auth
@@ -74,7 +74,7 @@
 | /teachers/:teacher_id/students  |  GET | teacher의 student 전체 정보 |
 | /teachers/:teacher_id/students  |  POST | teacher의 student 추가 - 전체 정보로 |
 | /teachers/:teacher_id/students/:student_id | POST | teacher의 student 추가 - 학생 id 값으로 |
-| /teachers/:teacher_id/students/student_id  |  DELETE | teacher의 student 삭제 |
+| /teachers/:teacher_id/students/:student_id  |  DELETE | teacher의 student 삭제 |
 ```
 요청
 "school": "한국초등학교",

@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app",
-		"seed": "node data/seed.js"
+	  "seed": "node data/seed.js",
+    "seed-school": "node data/save.js"
   },
   "author": "",
   "license": "MIT",

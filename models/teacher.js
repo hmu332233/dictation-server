@@ -10,9 +10,10 @@ var teacherSchema = new Schema({
 		school: String,
 		grade: String,
 		class: String,
-    name: String,
+		name: String,
 		students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
-    quiz_histories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'QuizHistory' }]
+		quiz_histories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'QuizHistory' }],
+		applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }]
 });
 
 /* 중복체크 함수 */

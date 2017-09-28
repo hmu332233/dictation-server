@@ -14,7 +14,7 @@ router.post('/matching/apply', function (req, res){
     
     teacher.applicants.push(student_id);
     teacher.save();
-    return res.send(teacher);
+    return res.send({result:true});
   });
   
 });
@@ -38,7 +38,7 @@ router.post('/matching/accept', function (req, res){
       return res.status(404).send({});
     }
     
-    return res.send({});
+    return res.send({result:true});
   });
 });
 
@@ -60,7 +60,7 @@ router.post('/matching/cancel', function (req, res){
       return res.status(404).send({});
     }
     
-    return res.send({});
+    return res.send({result:true});
   });
   
 });

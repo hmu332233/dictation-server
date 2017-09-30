@@ -116,4 +116,42 @@ router.delete("/teachers/:teacher_id/students/:students_id", function (req, res)
 	
 });
 
+router.get('/students/:id/teachers', function (req, res){
+  
+  var id = req.params.id;
+  
+  Student.findById(id).populate('teachers').exec(function (err, student){
+    if(err){
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    if(!student){
+      return res.status(404).send({});
+    }
+    
+    return res.send(student.teachers);
+  });
+  
+});
+
+router.delete('/students/:student_id/teachers/:teacher_id', function (req, res){
+  
+  var teacher_id = req.params.teacher_id;
+  var student_id = req.params.student_id;
+  
+  Student.findById(student_id).populate('teachers').exec(function (err, student){
+    if(err){
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    if(!student){
+      return res.status(404).send({});
+    }
+    student.teachers.remove(teacher_id);
+    student.save();
+    
+    return res.send({});
+  });
+});
+
 module.exports = router;

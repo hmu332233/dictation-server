@@ -91,4 +91,38 @@ router.get('/matching/list/:teacher_login_id', function (req ,res){
 	});
 });
 
+router.delete('/matching/teacher_id/:teacher_id/student_id/:student_id', function (req, res){
+    
+  var teacher_id = req.params.teacher_id;
+  var student_id = req.params.student_id;
+  
+  Teacher.findById(teacher_id).exec()
+  	.then(function (teacher){
+    	if(!teacher){
+        throw new Error({status:404});
+      }
+    	teacher.students.remove(student_id);
+  		teacher.save();
+    
+  		return Student.findById(student_id).exec();  
+  	})
+  	.then(function (student){
+    	if(!student){
+        throw new Error({status:404});
+      }
+    
+  		student.teachers.remove(teacher_id);  
+  		student.save();
+  	})
+  	.then(function (){
+    	return res.send({result:true});
+  	})
+  	.catch(function (err){
+    	if(err.status === 404) return res.status(404).send({});
+    
+    	console.log(err);
+    	return res.status(500).send(err);
+  	});
+});
+
 module.exports = router;

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 var Teacher = require("../models/teacher");
+var Student = require("../models/student");
 
 router.post('/matching/apply', function (req, res){
 
@@ -25,15 +26,28 @@ router.post('/matching/accept', function (req, res){
   var student_id = req.body.student_id;
   
   Teacher.findOne({login_id: teacher_login_id}, function (err, teacher){
-    if(err) return res.status(500).send(err);
+    if(err){
+          console.log(err);
+          return res.status(500).send(err);
+    } 
     if(!teacher) return res.status(404).send({});
     
     if(teacher.applicants.indexOf(student_id) > -1){  // if student exsis, remove at applicants and add in students
       
-      teacher.applicants.remove(student_id);
-      teacher.students.push(student_id);
-      teacher.save();
-      
+      Student.findById(student_id, function (err, student){
+      	if(err){
+          console.log(err);
+          return res.status(500).send(err);
+        } 
+    		if(!student) return res.status(404).send({});
+      	
+      	teacher.applicants.remove(student_id);
+      	teacher.students.push(student_id);
+      	teacher.save();  
+        
+        student.teachers.push(teacher._id);
+        student.save();
+      });
     } else {
       return res.status(404).send({});
     }

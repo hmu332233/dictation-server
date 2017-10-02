@@ -10,7 +10,8 @@ var studentSchema = new Schema({
 		class: String,
 		student_id: Number,
 		name: String,
-		quiz_results: Array
+		quiz_results: Array,
+  	teachers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Teacher' }]
 });
 
 /* 중복체크 함수 */

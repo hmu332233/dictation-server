@@ -1,3 +1,4 @@
+
 const express = require('express');
 const router = express.Router();
 
@@ -96,24 +97,23 @@ router.put('/students/:id', function (req, res){
 });
 
 //delete
-router.delete("/teachers/:teacher_id/students/:students_id", function (req, res){
+router.delete("/teachers/:teacher_id/students/:student_id", function (req, res){
 	
 	var teacher_id = req.params.teacher_id;
-	var students_id = req.params.students_id;
+	var student_id = req.params.student_id;
 	
 	Teacher.findById(teacher_id, function (err, teacher){
-		if(err) return res.status(500).send(err);
-		teacher.students.remove(students_id);
+		if(err){
+      console.log(err);
+    	return res.status(500).send(err); 
+    } 
+    if(!teacher) return res.status(404).send({});
+		teacher.students.remove(student_id);
 		teacher.save(function (err, teacher){
 			if(err) return res.status(500).send(err);
+      res.send({reusult:true});
 		});
 	});
-  
-	Student.remove({ "_id": students_id }, function (err){
-    if(err) return res.status(500).send(err);
-    res.send("success");
-  });
-	
 });
 
 router.get('/students/:id/teachers', function (req, res){

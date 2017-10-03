@@ -8,9 +8,11 @@ router.get("/schools/search", function (req, res){
   var query = {};
   var _region1 = req.query.region1;
   var _region2 = req.query.region2;
+  var _name = req.query.name;
   
   if(_region1) query.region1 = _region1;
   if(_region2) query.region2 = _region2;
+  if(_name) query.name = new RegExp(_name);
   
   console.log(query);
   

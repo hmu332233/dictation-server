@@ -60,7 +60,7 @@ quizHistorySchema.statics.get_average = function (id, callback) {
 quizHistorySchema.statics.get_quiz_history_with_lank = function (id, callback) {
   this.findById(id, function (err, quiz_history) {
     if(err) {
-      return callback(null);
+      return callback(err);
     }
     
     quiz_history.quiz_results.sort(function(a, b) {
@@ -74,6 +74,30 @@ quizHistorySchema.statics.get_quiz_history_with_lank = function (id, callback) {
     }
     
     quiz_history.quiz_results = quiz_results;
+    return callback(null, quiz_history);
+  });
+};
+
+/*
+ ### function get_quiz_history_with_rectify_count (id, callback)
+ #### @id {ObjectId} quiz_history의 id
+ #### @callback {function(err, quiz_history)} 완료시 응답한다.
+ 
+ quiz_result.rectify_count들을 모두 합산하여 quiz_history.rectify_count를 갱신한다.
+*/
+quizHistorySchema.statics.get_quiz_history_with_rectify_count = function (id, callback) {
+  this.findById(id, function (err, quiz_history) {
+    if(err) {
+      return callback(err);
+    }
+    
+    const quiz_results = quiz_history.quiz_results;
+		quiz_results.forEach(function (quiz_result) {
+      for(let i = 1 ; i <= 10 ; i++) {
+      	quiz_history.rectify_count[`property${i}`] += quiz_result.rectify_count[`property${i}`];
+      }
+    });
+		
     return callback(null, quiz_history);
   });
 };

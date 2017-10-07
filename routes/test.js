@@ -3,6 +3,7 @@ const router = express.Router();
 
 var async = require('async');
 var QuizHistory = require("../models/quiz_history");
+var QuizResult = require("../models/quiz_result");
 var Teacher = require("../models/teacher");
 var Student = require("../models/student");
 
@@ -39,10 +40,9 @@ router.post('/quiz/start', function (req, res){
 router.post('/quiz/end', function (req, res){
 	
 	var data = req.body;
-	console.log(data);
 	var student_id = data.student_id;
 	var quiz_history_id = data.quiz_history_id;
-	var quiz_result = data.quiz_result;
+	var quiz_result = new QuizResult(data.quiz_result);
 	
 	Student.findById(student_id, function (err, student){
 		if(err) return res.status(500).send(err);

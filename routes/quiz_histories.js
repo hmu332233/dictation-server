@@ -22,7 +22,7 @@ router.get('/teachers/:teacher_id/quiz_histories', function (req, res){
 router.get('/quiz_histories/:id', function (req, res){
   
 	var id = req.params.id;
-	
+
 	QuizHistory.findById(id, function (err, quizHistory){
 		if(err) return res.status(500).send(err);
 		res.send(quizHistory);

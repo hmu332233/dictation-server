@@ -53,6 +53,9 @@ router.post('/quiz/end', function (req, res){
 	
 	QuizHistory.findById(quiz_history_id, function (err, quizHistory){
 		if(err) return res.status(500).send(err);
+    if(!quizHistory) {
+      return res.status(404).send({});
+    }
 		quizHistory.quiz_results.push(quiz_result);
 		quizHistory.save();
 		res.send(quizHistory);

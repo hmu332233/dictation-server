@@ -25,7 +25,9 @@ router.get('/quiz_histories/:id', function (req, res){
 
 	QuizHistory.findById(id, function (err, quizHistory){
 		if(err) return res.status(500).send(err);
-		res.send(quizHistory);
+    quizHistory.update_average_and_rectify_count_and_lank(function (err, quizHistory) {
+      return res.send(quizHistory);
+    });
 	});
 });
 

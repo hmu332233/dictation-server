@@ -11,6 +11,7 @@ var quizHistorySchema = new Schema({
 		date: { type: String, default: new Date().format("MM월 dd일 a/p hh시 mm분")},
 		quiz_number: Number, //quiz 외래키
 		quiz_results: Array,
+  	average: Number,
   	rectify_count: {
       property1: { type: Number, default: 0 },
       property2: { type: Number, default: 0 },
@@ -95,7 +96,7 @@ quizHistorySchema.methods.get_quiz_history_with_rectify_count = function (callba
  ## function update_average_and_rectify_count_and_lank (callback)
  ### @callback {function (err, quiz_histories)}
  
- quiz_history에 평균, rectify_count, lank를 업데이트 시켜 돌려준다.
+ quiz_history에 평균, rectify_count, lank를 업데이트 시켜준다.
 */
 quizHistorySchema.methods.update_average_and_rectify_count_and_lank = function (callback) {
   
@@ -134,7 +135,7 @@ quizHistorySchema.methods.update_average_and_rectify_count_and_lank = function (
     self.rectify_count = quiz_history_with_rectify_count.rectify_count;
     self.average = average;
     
-    return callback(null, self);
+    // return callback(null, self);
 	});
   
 };

@@ -88,8 +88,11 @@ quizHistorySchema.methods.get_quiz_history_with_rectify_count = function (callba
     	quiz_history.rectify_count[`property${i}`] += quiz_result.rectify_count[`property${i}`];
     }
   });
-		
-  return callback(null, quiz_history);
+	
+  if(callback) {
+  	callback(null, quiz_history);  
+  }
+  return quiz_history;
 };
 
 /*

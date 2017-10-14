@@ -104,7 +104,9 @@ router.get("/teachers/:id/quizzes", function (req, res) {
       console.log(err);
       return res.status(500).send(err);
     }
-    
+    if(!teacher|| teacher.quizzes.length === 0) {
+    	return res.status(404).send(err);
+    }
     res.send(teacher.quizzes);
   });
 });

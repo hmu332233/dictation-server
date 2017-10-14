@@ -83,7 +83,7 @@ router.get('/matching/list/:teacher_login_id', function (req ,res){
 
 	var teacher_login_id = req.params.teacher_login_id;
 	
-	Teacher.findOne({login_id: teacher_login_id}).populate('applicants','school grade class name').exec(function (err, teacher){
+	Teacher.findOne({login_id: teacher_login_id}).populate('applicants','school grade class student_id name').exec(function (err, teacher){
 		if(err) return res.status(500).send(err);
     if(!teacher) return res.status(400).send({});
 		

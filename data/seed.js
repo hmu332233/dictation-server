@@ -154,6 +154,8 @@ db.once('open', function(){
 			Quiz.create(quiz, function (err, quiz){
 				if(err) return console.log(err);
 				console.log('quiz save');
+        teacher.quizzes.push(quiz._id);
+        teacher.save();
 				callback(null,teacher);
 			});	
 		},

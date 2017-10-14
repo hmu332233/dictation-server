@@ -65,10 +65,10 @@ router.get("/students/check_duplicate", function (req, res){
 //show
 router.get('/students/:id', function (req, res){
 	var id = req.params.id;
-	console.log(id);
 	
 	Student.findById(id, function (err, student){
 		if(err) return res.status(500).send(err);
+    if(!student) return res.status(404).send({});
 		res.send(student);
 	});
 });
@@ -91,7 +91,11 @@ router.put('/students/:id', function (req, res){
 	var id = req.params.id;
   
   Student.findByIdAndUpdate(id, req.body, {new: true}, function (err, student) {
-    if(err) return res.status(500).send(err);
+    if(err) {
+      console.log(err);
+    	return res.status(500).send(err);
+    }
+    if(!student) return res.status(404).send({});
     res.send(student);
   });
 });

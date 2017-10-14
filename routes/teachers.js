@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 var Teacher = require("../models/teacher");
+var Quiz = require("../models/quiz");
 
 //check for duplicate
 router.get("/teachers/check_duplicate", function (req, res){
@@ -92,6 +93,47 @@ router.get("/teachers/login_id/:login_id", function (req, res){
 		res.send(teacher);
 	});
 	
+});
+
+//get teacher.quizzes
+router.get("/teachers/:id/quizzes", function (req, res) {
+	var id = req.params.id;
+  
+  Teacher.findById(id).populate('quizzes').exec(function (err, teacher) {
+    if(err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    if(!teacher|| teacher.quizzes.length === 0) {
+    	return res.status(404).send(err);
+    }
+    res.send(teacher.quizzes);
+  });
+});
+
+//add teacher.quizzes
+// @body: quiz
+router.post("/teachers/:id/quizzes", function (req, res) {
+  var id = req.params.id;
+  
+	Teacher.findById(id, function (err, teacher) {
+    
+		Quiz.create(req.body, function (err, quiz){
+			if(err) {
+        if(err.code === 11000) {
+          return res.send({result: false});
+        }
+  			console.log(err);
+				return res.status(500).send(err);
+      }
+      
+			teacher.quizzes.push(quiz._id);
+			teacher.save();
+      
+			return res.send({result:true});
+		});
+  });
+  
 });
 
 module.exports = router;

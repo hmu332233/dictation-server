@@ -13,7 +13,8 @@ var teacherSchema = new Schema({
 		name: String,
 		students: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
 		quiz_histories: [{ type: mongoose.Schema.Types.ObjectId, ref: 'QuizHistory' }],
-		applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }]
+		applicants: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Student' }],
+		quizzes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Quiz' }]
 });
 
 /* 중복체크 함수 */

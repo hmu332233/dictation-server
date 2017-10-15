@@ -11,7 +11,7 @@ router.get('/teachers/:teacher_id/students', function (req ,res){
 	
 	Teacher.findById(teacher_id).populate('students').exec(function (err, teacher){
 		if(err) return res.status(500).send(err);
-		res.send(teacher);
+		res.send(teacher.students);
 	});
 });
 

@@ -17,6 +17,7 @@
     "express": "^4.15.3",
     "forever": "^0.15.3",
     "mongoose": "^4.11.5",
+    "mongoose-auto-increment": "^5.0.1",
     "morgan": "^1.8.2"
   }
 }

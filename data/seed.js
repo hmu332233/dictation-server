@@ -19,7 +19,11 @@ db.once('open', function(){
 		school: "한국초등학교",
 		grade: "1",
 		"class": "3",
-		name: "한의현"
+		name: "한의현",
+    students:[
+      '599b4041cefd5d07c5be9594',
+      '599c75f7836cc308789f5902'
+    ]
 	};
 	
 	var student1 = {
@@ -28,7 +32,10 @@ db.once('open', function(){
 		grade: "1",
 		class: "2",
 		student_id: 1,
-		name: "반도범"
+		name: "반도범",
+		teachers:[
+			'599b03151c6e6f0159a72815'
+		]
 	};
 	
 	var student2 = {
@@ -37,7 +44,10 @@ db.once('open', function(){
 		grade: "1",
 		class: "2",
 		student_id: 2,
-		name: "한민웅"
+		name: "한민웅",
+		teachers:[
+			'599b03151c6e6f0159a72815'
+		]
 	};
 	
 	var quiz = {

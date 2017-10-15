@@ -58,6 +58,7 @@ router.post('/quiz/end', function (req, res){
   	})
   	.catch(function (err) {
     	if(err.message === 'not found') return res.status(404).send({});
+    	console.log(err);
     	res.status(500).send(err);
   	});
 });

@@ -14,7 +14,7 @@ db.once('open', function(){
 	
 	var teacher = {
 		_id: "599b03151c6e6f0159a72815",
-		login_id: "test@test.com",
+		login_id: "test",
 		password: "123",
 		school: "한국초등학교",
 		grade: "1",

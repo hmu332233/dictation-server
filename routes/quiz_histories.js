@@ -11,10 +11,16 @@ router.get('/teachers/:teacher_id/quiz_histories', function (req, res){
   const results = [];
 	
 	Teacher.findById(teacher_id, function (err, teacher){
-		if(err) return res.status(500).send(err);
+		if(err) {
+			console.log(err);
+			return res.status(500).send(err);
+    }
     if(!teacher) return res.status(404).send({});
 		QuizHistory.find({_id: { $in : teacher.quiz_histories }}, function(err, quizHistories){
-			if(err) return res.status(500).send(err);
+			if(err) {
+				console.log(err);
+				return res.status(500).send(err);
+      }
       if(quizHistories.length === 0) return res.status(404).send({});
       quizHistories.forEach(function (quizHistory) {
         quizHistory.update_average_and_rectify_count_and_lank();

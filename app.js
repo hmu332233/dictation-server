@@ -30,7 +30,6 @@ app.use('/', require('./routes/quiz_histories'));
 app.use('/', require('./routes/test'));
 app.use('/', require('./routes/matching'));
 
-
-app.listen(3000, function (){
+app.listen(process.env.PORT || 3000, function (){
    console.log('server start!'); 
 });

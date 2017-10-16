@@ -10,7 +10,7 @@ var quizHistorySchema = new Schema({
     //id는 기본으로 생성됨
 		date: { type: String, default: new Date().format("MM월 dd일 a/p hh시 mm분")},
 		quiz_number: Number, //quiz 외래키
-		quiz_results: Array,
+		quiz_results: [{ type: mongoose.Schema.Types.ObjectId, ref: 'QuizResult' }],
   	average: Number,
   	rectify_count: {
       property1: { type: Number, default: 0 },

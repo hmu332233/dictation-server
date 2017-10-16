@@ -8,7 +8,7 @@ var mongoose = require('mongoose'),
 var quizResultSchema = new Schema({
     //id는 기본으로 생성됨
 		date: { type: String, default: new Date().format("MM월 dd일 a/p hh시 mm분")},
-		quiz_number: Object,
+		quiz: Object,
 		student_name: String,
 		score: Number,
 		question_results: Array,

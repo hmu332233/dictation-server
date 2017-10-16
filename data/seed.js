@@ -146,7 +146,7 @@ db.once('open', function(){
 		function (teacher, callback){
 			Student.create(student2, function (err, student){
 				console.log('student2 save');
-				teacher.students.push(student._id);
+				
 				teacher.save();
 				callback(null,teacher);
 			});
@@ -155,7 +155,7 @@ db.once('open', function(){
 			Student.create(student1, function (err, student){
 				if(err) return console.log(err);
 				console.log('student1 save');
-				teacher.students.push(student._id);
+				
 				teacher.save();
 				callback(null,teacher);
 			});

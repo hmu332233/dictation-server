@@ -13,6 +13,9 @@ router.post('/matching/apply', function (req, res){
     if(err) return res.status(500).send(err);
     if(!teacher) return res.status(404).send({});
     
+    if(teacher.applicants.indexOf(student_id) > -1) { // if applicant exsis, return false
+    	return res.send({result:false});
+    }
     teacher.applicants.push(student_id);
     teacher.save();
     return res.send({result:true});

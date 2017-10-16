@@ -16,7 +16,7 @@ db.once('open', function(){
 		_id: "599b03151c6e6f0159a72815",
 		login_id: "test",
 		password: "123",
-		school: "한국초등학교",
+		school: "당하초등학교",
 		grade: "1",
 		"class": "3",
 		name: "한의현",
@@ -28,7 +28,7 @@ db.once('open', function(){
 	
 	var student1 = {
 		_id: "599b4041cefd5d07c5be9594",
-		school: "한국초등학교",
+		school: "당하초등학교",
 		grade: "1",
 		class: "2",
 		student_id: 1,
@@ -40,7 +40,7 @@ db.once('open', function(){
 	
 	var student2 = {
 		_id: "599c75f7836cc308789f5902",
-		school: "한국초등학교",
+		school: "당하초등학교",
 		grade: "1",
 		class: "2",
 		student_id: 2,

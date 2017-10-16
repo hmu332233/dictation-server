@@ -12,6 +12,7 @@ var quizResultSchema = new Schema({
 		student_name: String,
 		score: Number,
 		question_results: Array,
+  	rank: { type: Number },
   	rectify_count: {
       property1: { type: Number, default: 0 },
       property2: { type: Number, default: 0 },

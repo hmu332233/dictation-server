@@ -9,7 +9,7 @@ router.get('/teachers/:teacher_id/students', function (req ,res){
 
 	var teacher_id = req.params.teacher_id;
 	
-	Teacher.findById(teacher_id).populate('students').exec(function (err, teacher){
+	Teacher.findById(teacher_id).populate({path:'students',populate:{path:'quiz_results'}}).exec(function (err, teacher){
 		if(err) return res.status(500).send(err);
 		res.send(teacher.students);
 	});

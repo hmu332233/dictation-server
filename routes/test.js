@@ -37,11 +37,12 @@ router.post('/quiz/end', function (req, res){
 	var student_id = data.student_id;
 	var quiz_history_id = data.quiz_history_id;
 	var quiz_result = new QuizResult(data.quiz_result);
+  quiz_result.save();
   
   Student.findById(student_id)
   	.then(function (student) {
     	if(!student) throw new Error('not found');
-    	student.quiz_results.push(quiz_result);
+    	student.quiz_results.push(quiz_result._id);
 			student.save();
   	})
   	.then(function () {
@@ -49,7 +50,7 @@ router.post('/quiz/end', function (req, res){
   	})
   	.then(function (quizHistory) {
     	if(!quizHistory) throw new Error('not found');
-    	quizHistory.quiz_results.push(quiz_result);
+    	quizHistory.quiz_results.push(quiz_result._id);
 			quizHistory.save();
     	return quizHistory;
   	})

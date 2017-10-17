@@ -10,7 +10,7 @@ var studentSchema = new Schema({
 		class: String,
 		student_id: Number,
 		name: String,
-		quiz_results: Array,
+		quiz_results: [{ type: mongoose.Schema.Types.ObjectId, ref: 'QuizResult' }],
   	teachers: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Teacher' }]
 });
 
@@ -22,5 +22,17 @@ studentSchema.statics.checkForDuplicate = function (query, callback) {
 		else callback(null, true);
 	});
 };
+
+studentSchema.pre('find', function(next) {
+  console.log("Pre Find");
+  this.populate('quiz_results');
+  next();
+});
+
+studentSchema.pre('findOne', function(next) {
+  console.log("Pre Find One");
+  this.populate('quiz_results');
+  next();
+});
 
 module.exports = mongoose.model("Student", studentSchema);

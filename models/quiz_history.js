@@ -51,12 +51,11 @@ quizHistorySchema.methods.get_average = function (callback) {
 };
 
 /*
- ### function get_quiz_history_with_lank (callback)
- #### @callback {function(err, quiz_history)} 완료시 응답한다.
+ ### function update_quiz_history_with_rank ()
  
- quiz_history에서 quiz_result들에 lank를 계산하고 추가한다.
+ quiz_history에서 quiz_result들에 rank를 계산하고 추가한다.
 */
-quizHistorySchema.methods.get_quiz_history_with_lank = function () {
+quizHistorySchema.methods.update_quiz_history_with_rank = function () {
   
   const quiz_history = this;
 
@@ -98,7 +97,7 @@ quizHistorySchema.methods.get_quiz_history_with_rectify_count = function (callba
  ## function update_average_and_rectify_count_and_lank (callback)
  ### @callback {function (err, quiz_histories)}
  
- quiz_history에 평균, rectify_count, lank를 업데이트 시켜준다.
+ quiz_history에 평균, rectify_count를 업데이트 시켜준다.
 */
 quizHistorySchema.methods.update_average_and_rectify_count_and_lank = function (callback) {
   
@@ -141,7 +140,7 @@ quizHistorySchema.methods.update_average_and_rectify_count_and_lank = function (
 
 quizHistorySchema.pre('save', function (next) {
   console.log('Pre save');
-  this.get_quiz_history_with_lank(function () {});
+  this.update_quiz_history_with_rank();
   next();
 });
 

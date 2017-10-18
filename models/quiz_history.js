@@ -4,13 +4,15 @@ var async = require('async');
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
+var QuizResult = require('./quiz_result');
+
 
 /* 스키마 정의 */
 var quizHistorySchema = new Schema({
     //id는 기본으로 생성됨
 		date: { type: String, default: new Date().format("MM월 dd일 a/p hh시 mm분")},
 		quiz_number: Number, //quiz 외래키
-		quiz_results: Array,
+		quiz_results: [{ type: mongoose.Schema.Types.ObjectId, ref: 'QuizResult' }],
   	average: Number,
   	rectify_count: {
       property1: { type: Number, default: 0 },
@@ -49,27 +51,23 @@ quizHistorySchema.methods.get_average = function (callback) {
 };
 
 /*
- ### function get_quiz_history_with_lank (callback)
- #### @callback {function(err, quiz_history)} 완료시 응답한다.
+ ### function update_quiz_history_with_rank ()
  
- quiz_history에서 quiz_result들에 lank를 계산하고 추가한다.
+ quiz_history에서 quiz_result들에 rank를 계산하고 추가한다.
 */
-quizHistorySchema.methods.get_quiz_history_with_lank = function (callback) {
+quizHistorySchema.methods.update_quiz_history_with_rank = function () {
   
   const quiz_history = this;
 
   quiz_history.quiz_results.sort(function(a, b) {
 	  return b.score - a.score;
   });
-    
+
   const quiz_results = quiz_history.quiz_results;
   for(var i = 0 ; i < quiz_results.length ; i++) {
     let quiz_result = quiz_results[i];
-    quiz_result.lank = i+1;
+    QuizResult.findByIdAndUpdate(quiz_result._id, {rank: i+1}).exec();
   }
-    
-  quiz_history.quiz_results = quiz_results;
-  return callback(null, quiz_history);
 };
 
 /*
@@ -99,21 +97,18 @@ quizHistorySchema.methods.get_quiz_history_with_rectify_count = function (callba
  ## function update_average_and_rectify_count_and_lank (callback)
  ### @callback {function (err, quiz_histories)}
  
- quiz_history에 평균, rectify_count, lank를 업데이트 시켜준다.
+ quiz_history에 평균, rectify_count를 업데이트 시켜준다.
 */
 quizHistorySchema.methods.update_average_and_rectify_count_and_lank = function (callback) {
   
   let self = this;
   
   var tasks = [
-		function (callback) {    
-      self.get_quiz_history_with_lank(function (err, quiz_history) {
-        if(err) callback(err);
-        callback(null, quiz_history);
-      });
+		function (callback) {  
+      callback(null);
 		},
 		function (callback) {
-			self.get_quiz_history_with_rectify_count(function (err, quiz_history) {
+     self.get_quiz_history_with_rectify_count(function (err, quiz_history) {
         if(err) callback(err);
         callback(null, quiz_history);
       });
@@ -130,11 +125,11 @@ quizHistorySchema.methods.update_average_and_rectify_count_and_lank = function (
 		if(err) {
       return callback(err);
     }
-    const quiz_history_with_lank = results[0];
+    // const quiz_history_with_lank = results[0];
     const quiz_history_with_rectify_count = results[1];
     const average = results[2];
     
-    self.quiz_results = quiz_history_with_lank.quiz_results;
+    // self.quiz_results = quiz_history_with_lank.quiz_results;
     self.rectify_count = quiz_history_with_rectify_count.rectify_count;
     self.average = average;
     
@@ -142,5 +137,22 @@ quizHistorySchema.methods.update_average_and_rectify_count_and_lank = function (
 	});
   
 };
+
+quizHistorySchema.pre('save', function (next) {
+  console.log('Pre save');
+  this.update_quiz_history_with_rank();
+  next();
+});
+
+quizHistorySchema.pre('find', function(next) {
+  console.log("Pre Find");
+  this.populate('quiz_results');
+  next();
+});
+quizHistorySchema.pre('findOne', function(next) {
+  console.log("Pre Find One");
+  this.populate('quiz_results');
+  next();
+});
 
 module.exports = mongoose.model("QuizHistory", quizHistorySchema);

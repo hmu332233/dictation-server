@@ -73,4 +73,19 @@ router.get('/teachers/:teacher_id/quiz_histories/rectify_count', function (req, 
 	});
 });
 
+//시험을 보는 학생들의 수를 set
+router.post('/quiz_histories/:id/number', function (req, res){
+  
+	var id = req.params.id;
+	var number = req.body.num;
+
+	QuizHistory.findById(id, function (err, quizHistory){
+		if(err) return res.status(500).send(err);
+		if(!quizHistory) return res.status(404).send({});
+		quizHistory.number = number;
+		quizHistory.save();
+		return res.send(quizHistory);
+	});
+});
+
 module.exports = router;

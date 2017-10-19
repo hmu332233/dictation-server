@@ -13,7 +13,8 @@ var quizHistorySchema = new Schema({
 		date: { type: String, default: new Date().format("MM월 dd일 a/p hh시 mm분")},
 		quiz_number: Number, //quiz 외래키
 		quiz_results: [{ type: mongoose.Schema.Types.ObjectId, ref: 'QuizResult' }],
-  	average: Number,
+		average: Number,
+		number: Number,
   	rectify_count: {
       property1: { type: Number, default: 0 },
       property2: { type: Number, default: 0 },

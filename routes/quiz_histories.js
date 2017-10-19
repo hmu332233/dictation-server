@@ -84,7 +84,7 @@ router.post('/quiz_histories/:id/number', function (req, res){
 		if(!quizHistory) return res.status(404).send({});
 		quizHistory.number = number;
 		quizHistory.save();
-		return res.send(quizHistory);
+		return res.send({result:true});
 	});
 });
 

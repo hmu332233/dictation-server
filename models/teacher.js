@@ -1,6 +1,9 @@
 var mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
+const fs = require('fs');
+var Quiz = require("../models/quiz");
+
 
 /* 스키마 정의 */
 var teacherSchema = new Schema({
@@ -24,6 +27,22 @@ teacherSchema.statics.checkForDuplicate = function (_login_id, callback) {
 		if(!teacher) callback(null, false);
 		else callback(null, true);
 	});
+};
+
+teacherSchema.methods.save_default_quiz = function() {
+  var self = this;
+  
+  var data = fs.readFileSync('./data/quiz_data.json','utf8');
+    var result = '';
+		var quizzes = JSON.parse(data);
+
+    quizzes.forEach(function (quiz) {
+      let data = new Quiz(quiz);
+      data.save();
+      self.quizzes.push(data._id);
+    });     
+  
+	
 };
 
 

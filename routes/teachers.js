@@ -39,7 +39,7 @@ router.get("/teachers/:id", function (req, res){
 router.post("/teachers", function (req, res){
 	
 	var teacher = new Teacher(req.body);
-  
+  teacher.save_default_quiz();
   teacher.save(function (err, teacher){
     if(err){
 			if(err.code === 11000) return res.status(409).send(err);

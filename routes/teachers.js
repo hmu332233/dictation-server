@@ -2,6 +2,18 @@ const express = require('express');
 const router = express.Router();
 
 var Teacher = require("../models/teacher");
+var Quiz = require("../models/quiz");
+
+//check for duplicate
+router.get("/teachers/check_duplicate", function (req, res){
+	var login_id = req.query.login_id;
+	console.log(login_id);
+	Teacher.checkForDuplicate(login_id, function (err, duplicate){
+		console.log(duplicate);
+		if(duplicate) return res.send({result:true});
+		else return res.send({result:false});
+	});
+});
 
 //index
 router.get("/teachers", function (req, res){
@@ -27,9 +39,13 @@ router.get("/teachers/:id", function (req, res){
 router.post("/teachers", function (req, res){
 	
 	var teacher = new Teacher(req.body);
-  
+  teacher.save_default_quiz();
   teacher.save(function (err, teacher){
-    if(err) return res.status(500).send(err);
+    if(err){
+			if(err.code === 11000) return res.status(409).send(err);
+			
+			return res.status(500).send(err);
+		} 
     res.send(teacher);
   });
 	
@@ -65,6 +81,59 @@ router.get("/teachers/:id/quzzies", function (req, res){
   	if(!teacher) return res.status(404).send({ err: "Teacher not found"});
   	res.send(teacher.quzzies);
   });
+});
+
+router.get("/teachers/login_id/:login_id", function (req, res){
+	
+	var login_id = req.params.login_id;
+	
+	Teacher.findOne({'login_id': login_id }, function (err, teacher){
+		if(err) return res.status(500).send(err);
+		if(!teacher) return res.status(404).send({ err: "Teacher not found"});
+		res.send(teacher);
+	});
+	
+});
+
+//get teacher.quizzes
+router.get("/teachers/:id/quizzes", function (req, res) {
+	var id = req.params.id;
+  
+  Teacher.findById(id).populate('quizzes').exec(function (err, teacher) {
+    if(err) {
+      console.log(err);
+      return res.status(500).send(err);
+    }
+    if(!teacher|| teacher.quizzes.length === 0) {
+    	return res.status(404).send(err);
+    }
+    res.send(teacher.quizzes);
+  });
+});
+
+//add teacher.quizzes
+// @body: quiz
+router.post("/teachers/:id/quizzes", function (req, res) {
+  var id = req.params.id;
+  
+	Teacher.findById(id, function (err, teacher) {
+    
+		Quiz.create(req.body, function (err, quiz){
+			if(err) {
+        if(err.code === 11000) {
+          return res.send({result: false});
+        }
+  			console.log(err);
+				return res.status(500).send(err);
+      }
+      
+			teacher.quizzes.push(quiz._id);
+			teacher.save();
+      
+			return res.send({result:true});
+		});
+  });
+  
 });
 
 module.exports = router;

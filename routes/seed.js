@@ -1,4 +1,5 @@
-const mongoose   = require("mongoose");
+const express = require('express');
+const router = express.Router();
 
 var async = require('async');
 var Teacher = require("../models/teacher");
@@ -6,13 +7,13 @@ var Student = require("../models/student");
 var Quiz = require("../models/quiz");
 var QuizHistory = require("../models/quiz_history");
 
-/* 데이터 베이스 서버 연결 */
-var db = mongoose.connection;
-db.on('error', console.error);
-db.once('open', function(){
-  console.log("Connected to mongod server");
-	
-	var teacher = {
+const fs = require('fs');
+var School = require("../models/school");
+
+//index
+router.get('/seed', function (req, res){
+
+  var teacher = {
 		_id: "599b03151c6e6f0159a72815",
 		login_id: "test",
 		password: "123",
@@ -177,15 +178,30 @@ db.once('open', function(){
 			});
 		}
 	];
-	
-	
 	async.waterfall(tasks, function (err, results){
 		if(err) return res.status(500).send(err);
 		console.log('seed complete');
+    res.send({result:'success'});
 	});
 });
-mongoose.connect(process.env.DB_URL || 'mongodb://localhost:27017/dictationdb');
 
+router.get('/seed/schools', function (req, res) {
+  	fs.readFile('./data/school_data.txt','utf8', function(err, data){
+		var schools = JSON.parse(data);
+    
+    School.remove({}).then(function (){
+      console.log('schools data remove all');
+      for(var i in schools){
+        var school = schools[i];
+        School.create(school, function(err, sc){
+          console.log(sc);
+        });
+      }
+      console.log('schools data create complete');
+      res.send({result:'success'});
+    });
+		
+	});
+});
 
-
-
+module.exports = router;

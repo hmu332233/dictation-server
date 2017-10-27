@@ -3,6 +3,7 @@ const router = express.Router();
 
 var async = require('async');
 var QuizHistory = require("../models/quiz_history");
+var QuizResult = require("../models/quiz_result");
 var Teacher = require("../models/teacher");
 var Student = require("../models/student");
 
@@ -10,53 +11,57 @@ var Student = require("../models/student");
 router.post('/quiz/start', function (req, res){
   
 	var teacher_id = req.body.teacher_id;
-	
-	var tasks = [
-		function(callback){
-			QuizHistory.create(req.body, function (err, quizHistory){
-				if(err) callback(err, 0);
-				callback(null, quizHistory);
-			});
-		},
-		function(data, callback){
-			Teacher.findById(teacher_id, function (err, teacher){
-				if(err) callback(err, 0);
-				teacher.quiz_histories.push(data._id);
-				teacher.save();
-				callback(null, data._id);
-			});
-		}
-	];
-	
-	async.waterfall(tasks, function (err, results){
 
-		if(err) return res.status(500).send(err);
-		res.send({quiz_history_id: results});
-	});
+  Teacher.findById(teacher_id)
+  	.then(function (teacher) {
+    	if(!teacher) throw new Error('not found');
+    	var quizHistory = new QuizHistory(req.body);
+    	quizHistory.save();
+    	teacher.quiz_histories.push(quizHistory._id);
+			teacher.save();
+    	return quizHistory;
+  	})
+  	.then(function (quizHistory) {
+    	res.send({quiz_history_id: quizHistory._id});
+  	})
+  	.catch(function (err) {
+    	if(err.message === 'not found') return res.status(404).send({});
+    	res.status(500).send(err);
+  	});
 });
 
 
 router.post('/quiz/end', function (req, res){
 	
 	var data = req.body;
-	console.log(data);
 	var student_id = data.student_id;
 	var quiz_history_id = data.quiz_history_id;
-	var quiz_result = data.quiz_result;
-	
-	Student.findById(student_id, function (err, student){
-		if(err) return res.status(500).send(err);
-		// console.log(student);
-		student.quiz_results.push(quiz_result);
-		student.save();
-	});
-	
-	QuizHistory.findById(quiz_history_id, function (err, quizHistory){
-		if(err) return res.status(500).send(err);
-		quizHistory.quiz_results.push(quiz_result);
-		quizHistory.save();
-		res.send(quizHistory);
-	});
+	var quiz_result = new QuizResult(data.quiz_result);
+  quiz_result.save();
+  
+  Student.findById(student_id)
+  	.then(function (student) {
+    	if(!student) throw new Error('not found');
+    	student.quiz_results.push(quiz_result._id);
+			student.save();
+  	})
+  	.then(function () {
+    	return QuizHistory.findById(quiz_history_id);
+  	})
+  	.then(function (quizHistory) {
+    	if(!quizHistory) throw new Error('not found');
+    	quizHistory.quiz_results.push(quiz_result._id);
+			quizHistory.save();
+    	return quizHistory;
+  	})
+  	.then(function (quizHistory) {
+    	res.send(quizHistory);
+  	})
+  	.catch(function (err) {
+    	if(err.message === 'not found') return res.status(404).send({});
+    	console.log(err);
+    	res.status(500).send(err);
+  	});
 });
 
 module.exports = router;
